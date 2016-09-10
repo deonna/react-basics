@@ -99,6 +99,7 @@ function Player(props) {
   return (
     <div className="player">
       <div className="player-name">
+        <a className="remove-player" onClick={props.onRemove}>❌</a>
         {props.name}
       </div>
       <div className="player-score">
@@ -112,6 +113,7 @@ Player.propTypes = {
   name: React.PropTypes.string.isRequired,
   score: React.PropTypes.number.isRequired,
   onScoreChange: React.PropTypes.func.isRequired,
+  onRemove: React.PropTypes.func.isRequired,
 };
 
 function Counter(props) {
@@ -171,6 +173,11 @@ const Application = React.createClass({
     this.setState(this.state);
   },
 
+  onRemovePlayer: function(index) {
+    this.state.players.splice(index, 1);
+    this.setState(this.state);
+  },
+
   render: function() {
     return (
       <div className="scoreboard">
@@ -181,6 +188,7 @@ const Application = React.createClass({
             return (
               <Player
                 onScoreChange={(delta) => {this.onScoreChange(index, delta);}}
+                onRemove={() => {this.onRemovePlayer(index);}}
                 name={player.name}
                 score={player.score}
                 key={player.id} />
