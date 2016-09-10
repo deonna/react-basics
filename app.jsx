@@ -16,9 +16,38 @@ const PLAYERS = [
   },
 ];
 
+function Stats(props) {
+  let totalPlayers = props.players.length;
+  let totalScore = props.players.reduce((total, player) => {
+    return total + player.score;
+  }, 0)
+
+  return (
+    <table className="stats">
+      <thead>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Players: </td>
+          <td>{totalPlayers}</td>
+        </tr>
+        <tr>
+          <td>Total: </td>
+          <td>{totalScore}</td>
+        </tr>
+      </tbody>
+    </table>
+  );
+}
+
+Stats.propTypes = {
+  players: React.PropTypes.array.isRequired,
+};
+
 function Header(props) {
   return (
     <div className="header">
+      <Stats players={props.players} />
       <h1>{props.title}</h1>
     </div>
   );
@@ -26,6 +55,7 @@ function Header(props) {
 
 Header.propTypes = {
   title: React.PropTypes.string.isRequired,
+  players: React.PropTypes.array.isRequired,
 };
 
 function Player(props) {
@@ -97,7 +127,7 @@ const Application = React.createClass({
   render: function() {
     return (
       <div className="scoreboard">
-        <Header title={this.props.title} />
+        <Header title={this.props.title} players={this.state.players} />
 
         <div className="players">
           {this.state.players.map((player, index) => {
