@@ -1,20 +1,57 @@
+let getUniqueId = function() {
+  return _.toInteger(_.uniqueId());
+}
+
 const PLAYERS = [
   {
     name: 'Deonna Hodges',
     score: 31,
-    id: 1,
+    id: getUniqueId(),
   },
   {
     name: 'Hylinn Taggart',
     score: 33,
-    id: 2,
+    id: getUniqueId(),
   },
   {
     name: 'Celia Hodges',
     score: 42,
-    id: 3,
+    id: getUniqueId(),
   },
 ];
+
+let AddPlayerForm = React.createClass({
+  propTypes: {
+    onAdd: React.PropTypes.func.isRequired,
+  },
+
+  getInitialState: function() {
+      return ({
+        name: "",
+      });
+  },
+
+  onSubmit: function(e) {
+      e.preventDefault();
+
+      this.props.onAdd(this.state.name);
+  },
+
+  onNameChange: function(e) {
+    this.setState({name: e.target.value});
+  },
+
+  render: function() {
+    return (
+      <div className="add-player-form">
+        <form onSubmit={this.onSubmit}>
+          <input type="text" value={this.state.name} onChange={this.onNameChange} />
+          <input type="submit" value="Add Player" />
+        </form>
+      </div>
+    );
+  },
+});
 
 function Stats(props) {
   let totalPlayers = props.players.length;
@@ -124,6 +161,16 @@ const Application = React.createClass({
     this.setState(this.state);
   },
 
+  onPlayerAdd: function(name) {
+    console.log(name);
+    this.state.players.push({
+      name: name,
+      score: 0,
+      id: getUniqueId(),
+    });
+    this.setState(this.state);
+  },
+
   render: function() {
     return (
       <div className="scoreboard">
@@ -140,6 +187,7 @@ const Application = React.createClass({
             );
           }) }
         </div>
+        <AddPlayerForm onAdd={this.onPlayerAdd}/>
       </div>
     );
   },
