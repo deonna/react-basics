@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
 
+import './css/style.css'
+
 let getUniqueId = function() {
   return _.toInteger(_.uniqueId());
 }
@@ -135,7 +137,7 @@ let Stopwatch = React.createClass({
 
   render: function() {
     let seconds = Math.floor(this.state.elapsedTime / 1000);
-    console.log(seconds);
+
     return (
       <div className="stopwatch">
         <h2>Stopwatch</h2>
@@ -229,14 +231,16 @@ const Application = React.createClass({
   },
 
   onScoreChange: function(index, delta) {
-    console.log(index, delta);
     this.state.players[index].score += delta;
-    this.setState(this.state);
+    let sortedPlayers = _.sortBy(this.state.players, ['score'])
+
+    this.setState({
+      players: sortedPlayers,
+    });
   },
 
   onPlayerAdd: function(name) {
-    console.log(name);
-    this.state.players.push({
+    this.state.players.unshift({
       name: name,
       score: 0,
       id: getUniqueId(),

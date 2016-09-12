@@ -216,7 +216,7 @@
 
 	  render: function render() {
 	    var seconds = Math.floor(this.state.elapsedTime / 1000);
-	    console.log(seconds);
+
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'stopwatch' },
@@ -354,14 +354,16 @@
 	  },
 
 	  onScoreChange: function onScoreChange(index, delta) {
-	    console.log(index, delta);
 	    this.state.players[index].score += delta;
-	    this.setState(this.state);
+	    var sortedPlayers = _lodash2.default.sortBy(this.state.players, ['score']);
+
+	    this.setState({
+	      players: sortedPlayers
+	    });
 	  },
 
 	  onPlayerAdd: function onPlayerAdd(name) {
-	    console.log(name);
-	    this.state.players.push({
+	    this.state.players.unshift({
 	      name: name,
 	      score: 0,
 	      id: getUniqueId()
