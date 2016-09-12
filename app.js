@@ -276,4 +276,4 @@ const Application = React.createClass({
   },
 });
 
-ReactDOM.render(<Application initialPlayers={PLAYERS}/>, document.getElementById('container'));
+ReactDOM.render(<Application initialPlayers={PLAYERS} />, document.getElementById('container'));
