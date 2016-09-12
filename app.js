@@ -1,3 +1,7 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import _ from 'lodash';
+
 let getUniqueId = function() {
   return _.toInteger(_.uniqueId());
 }
