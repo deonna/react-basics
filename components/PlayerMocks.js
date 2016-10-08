@@ -19,7 +19,7 @@ let PlayerMocks = {
       id: getUniqueId(),
     },
     {
-      name: 'Celia Hodges',
+      name: 'Evelyn Hodges',
       score: 42,
       id: getUniqueId(),
     },
